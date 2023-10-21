@@ -1,3 +1,5 @@
+import { ExtraField } from "@/store/extraFieldsSlice";
+
 export type FormData = {
  title: string;
  subtitle: string;
@@ -6,4 +8,5 @@ export type FormData = {
  textAlign: 'left' | 'center' | 'right';
  backgroundColor: string;
  buttonText: string;
+ extraFields: ExtraField[];
 };

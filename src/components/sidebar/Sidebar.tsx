@@ -13,6 +13,7 @@ import { toggleFirstNameRequired, toggleLastNameRequired } from '@/store/require
 import { ExtraField, FieldType, addField, removeField, updateField } from '@/store/extraFieldsSlice';
 import Field from '../Field/Field';
 import FormFields from './FormFields/FormFields';
+import { saveWidgetSettings } from '@/service/apiService';
 
 const Sidebar = () => {
     const {
@@ -23,15 +24,24 @@ const Sidebar = () => {
         resolver: zodResolver(formSchema),
     });
 
+
     const handleFormSubmit = (data: FormData) => {
         console.log(data);
+        try {
+            saveWidgetSettings(data).then((res) => {
+                console.log('Data saved successfully:', res);
+            });
+
+        } catch (error: any) {
+            console.log('Error saving data:', error.message);
+
+        }
+
     };
 
     const dispatch = useDispatch();
 
     // State from Redux
-    const title = useSelector((state: RootState) => state.titleSubtitle.title);
-    const subtitle = useSelector((state: RootState) => state.titleSubtitle.subtitle);
     const fontSize = useSelector((state: RootState) => state.fontCustomization.fontSize);
     const fontColor = useSelector((state: RootState) => state.fontCustomization.fontColor);
     const textAlign = useSelector((state: RootState) => state.fontCustomization.textAlign);
@@ -49,7 +59,6 @@ const Sidebar = () => {
         dispatch(addField(newField));
     };
 
-
     return (
         <Box
             as="form"
@@ -61,7 +70,7 @@ const Sidebar = () => {
 
             <VStack spacing={4} align="stretch">
                 {/* Title and Subtitle */}
-                <FormFields />
+                <FormFields register={register} />
 
                 <Heading size="md">Field Requirements</Heading>
                 <Checkbox
@@ -146,7 +155,7 @@ const Sidebar = () => {
                 {/* List of added extra fields */}
                 {extraFields.map(field => (
                     <Box key={field.id} mt={4} p={4} borderWidth="1px" borderRadius="md">
-                        <Field field={field} />
+                        <Field field={field} register={register} />
                         <Button mt={2} onClick={() => dispatch(removeField(field.id))}>Remove Field</Button>
                     </Box>
                 ))}
