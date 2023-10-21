@@ -1,4 +1,4 @@
-import { Box, Heading, VStack, FormControl, FormLabel, Input, Select, Button } from '@chakra-ui/react';
+import { Box, Heading, VStack, FormControl, FormLabel, Input, Select, Button, Checkbox, Stack, Text, Textarea } from '@chakra-ui/react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store/store';
@@ -9,15 +9,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema } from '@/zodSchemas/formSchema';
 import { FormData } from './types';
-
-const StyledSidebar = styled(Box)`
-    width: 300px;
-    padding: 20px;
-    border-right: 1px solid #e2e8f0;
-`;
+import { toggleFirstNameRequired, toggleLastNameRequired } from '@/store/requiredFieldsSlice';
+import { ExtraField, FieldType, addField, removeField, updateField } from '@/store/extraFieldsSlice';
+import Field from '../Field/Field';
+import FormFields from './FormFields/FormFields';
 
 const Sidebar = () => {
-
     const {
         register,
         handleSubmit,
@@ -40,31 +37,45 @@ const Sidebar = () => {
     const textAlign = useSelector((state: RootState) => state.fontCustomization.textAlign);
     const backgroundColor = useSelector((state: RootState) => state.submitButton.backgroundColor);
     const buttonText = useSelector((state: RootState) => state.submitButton.text);
+    const isFirstNameRequired = useSelector((state: RootState) => state.requiredFields.firstName);
+    const isLastNameRequired = useSelector((state: RootState) => state.requiredFields.lastName);
+    const extraFields = useSelector((state: RootState) => state.extraFields);
+
+    const handleAddField = (type: FieldType) => {
+        const newField: ExtraField = {
+            id: Date.now().toString(), // simple unique ID generation
+            type: type
+        };
+        dispatch(addField(newField));
+    };
+
 
     return (
-        <StyledSidebar as="form" onSubmit={handleSubmit(handleFormSubmit)}>
+        <Box
+            as="form"
+            w="300px"
+            p="20px"
+            borderRight="1px solid #e2e8f0"
+            overflowY="auto"
+            onSubmit={handleSubmit(handleFormSubmit)}>
 
             <VStack spacing={4} align="stretch">
                 {/* Title and Subtitle */}
-                <Heading size="md">Form Settings</Heading>
-                <FormControl>
-                    <FormLabel>Title</FormLabel>
-                    <Input
-                        {...register("title")}
-                        value={title}
-                        onChange={(e) => dispatch(setTitle(e.target.value))}
-                        placeholder="Enter title"
-                    />
-                </FormControl>
-                <FormControl>
-                    <FormLabel>Subtitle</FormLabel>
-                    <Input
-                        {...register("subtitle")}
-                        value={subtitle}
-                        onChange={(e) => dispatch(setSubtitle(e.target.value))}
-                        placeholder="Enter subtitle"
-                    />
-                </FormControl>
+                <FormFields />
+
+                <Heading size="md">Field Requirements</Heading>
+                <Checkbox
+                    isChecked={isFirstNameRequired}
+                    onChange={() => dispatch(toggleFirstNameRequired())}
+                >
+                    First Name is required
+                </Checkbox>
+                <Checkbox
+                    isChecked={isLastNameRequired}
+                    onChange={() => dispatch(toggleLastNameRequired())}
+                >
+                    Last Name is required
+                </Checkbox>
 
                 {/* Font Customization */}
                 <Heading size="md">Font Customization</Heading>
@@ -124,10 +135,25 @@ const Sidebar = () => {
                         placeholder="Enter button text"
                     />
                 </FormControl>
+                {/* Extra Fields Settings */}
+                <Heading size="md">Extra Fields</Heading>
+                <Stack spacing={3}>
+                    <Button onClick={() => handleAddField('checkbox')}>Add Checkbox</Button>
+                    <Button onClick={() => handleAddField('radio')}>Add Radio Button</Button>
+                    <Button onClick={() => handleAddField('dropdown')}>Add Dropdown</Button>
+                </Stack>
+
+                {/* List of added extra fields */}
+                {extraFields.map(field => (
+                    <Box key={field.id} mt={4} p={4} borderWidth="1px" borderRadius="md">
+                        <Field field={field} />
+                        <Button mt={2} onClick={() => dispatch(removeField(field.id))}>Remove Field</Button>
+                    </Box>
+                ))}
             </VStack>
             <Button type="submit">Save</Button>
 
-        </StyledSidebar>
+        </Box>
     );
 };
 
