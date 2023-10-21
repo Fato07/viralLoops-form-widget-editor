@@ -16,7 +16,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
 
     // queue the task to the redis queue
-    await redis.lpush('widget-settings-tasks', JSON.stringify(req.body));
+    await redis.lpush('widget-settings-tasks', JSON.stringify(result));
 
 
     // Add a background task to the message broker
