@@ -11,16 +11,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model WidgetSettings {
-  id                  String  @id @default(uuid()) @map("id")
-  title               String
-  subtitle            String
-  fontSize            String
-  fontColor           String
-  textAlign           String
-  backgroundColor     String
-  buttonText          String
-  isFirstNameRequired Boolean
-  isLastNameRequired  Boolean
-  extraFields         Json
+model WidgetSettingsData {
+  id            String @id @default(uuid())
+  fieldSettings Json
+  fontSettings  Json
+  submitButton  Json
+  extraFields   Json
 }
