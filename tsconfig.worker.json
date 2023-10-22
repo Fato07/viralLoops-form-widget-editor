@@ -1,0 +1,15 @@
+{
+ "extends": "./tsconfig.json",
+ "compilerOptions": {
+   "target": "ES2020",
+   "module": "CommonJS",
+   "moduleResolution": "node",
+   "noEmit": false,
+   "isolatedModules": false,
+   "jsx": "react",
+   "outDir": "./dist",
+   "lib": ["ES2020"],
+   "paths": {}
+ },
+ "include": ["worker.ts"]
+}
