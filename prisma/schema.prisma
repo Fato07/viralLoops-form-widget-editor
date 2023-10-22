@@ -2,8 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -12,12 +12,15 @@ generator client {
 }
 
 model WidgetSettings {
-  id              Int       @id @default(autoincrement())
-  title           String    @db.VarChar(255)
-  subtitle        String    @db.VarChar(255)
-  fontSize        String    @db.VarChar(50)
-  fontColor       String    @db.VarChar(50)
-  textAlign       String    @db.VarChar(50)
-  backgroundColor String    @db.VarChar(50)
-  buttonText      String    @db.VarChar(255)
+  id                  String  @id @default(uuid()) @map("id")
+  title               String
+  subtitle            String
+  fontSize            String
+  fontColor           String
+  textAlign           String
+  backgroundColor     String
+  buttonText          String
+  isFirstNameRequired Boolean
+  isLastNameRequired  Boolean
+  extraFields         Json
 }
