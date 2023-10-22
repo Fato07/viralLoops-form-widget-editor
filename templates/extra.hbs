@@ -1,0 +1,19 @@
+    {{!-- {{#each extraFields}}
+        {{#if (eq this.type 'checkbox')}}
+            <input type="checkbox" id="{{this.id}}" {{#if this.required}}required{{/if}}>
+            <label for="{{this.id}}">{{this.label}}</label>
+        {{/if}}
+        {{#if (eq this.type 'radio')}}
+            {{#each this.options}}
+                <input type="radio" name="{{../this.id}}" value="{{this.value}}">
+                <label>{{this.label}}</label>
+            {{/each}}
+        {{/if}}
+        {{#if (eq this.type 'dropdown')}}
+            <select name="{{this.id}}">
+                {{#each this.options}}
+                    <option value="{{this.value}}">{{this.label}}</option>
+                {{/each}}
+            </select>
+        {{/if}}
+    {{/each}} --}}

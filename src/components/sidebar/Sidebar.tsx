@@ -25,19 +25,6 @@ const Sidebar = () => {
     });
 
 
-    const handleFormSubmit = (data: FormData) => {
-        console.log(data);
-        try {
-            saveWidgetSettings(data).then((res) => {
-                console.log('Data saved successfully:', res);
-            });
-
-        } catch (error: any) {
-            console.log('Error saving data:', error.message);
-
-        }
-
-    };
 
     const dispatch = useDispatch();
 
@@ -57,6 +44,26 @@ const Sidebar = () => {
             type: type
         };
         dispatch(addField(newField));
+    };
+
+    const handleFormSubmit = (data: FormData) => {
+
+        // Merge Redux state with data from React Hook Form
+        const finalData = {
+            ...data,
+            extraFields: extraFields
+        };
+        console.log(finalData);
+        // try {
+        //     saveWidgetSettings(data).then((res) => {
+        //         console.log('Data saved successfully:', res);
+        //     });
+
+        // } catch (error: any) {
+        //     console.log('Error saving data:', error.message);
+
+        // }
+
     };
 
     return (
