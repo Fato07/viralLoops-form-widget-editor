@@ -1,16 +1,17 @@
-import { FormData } from '@/components/sidebar/types';
 import axios from 'axios';
 
 const api = axios.create({
     baseURL: '/api', 
 });
 
-export const saveWidgetSettings = async (data: FormData) => {
-    try {
-        const response = await api.post('/saveWidget', data); 
-        return response.data;
-    } catch (error) {
-     console.log(error);
-     return error
-    }
+//TDOO: add types for data
+export const saveWidgetSettings = (data) => {
+    return api.post('/saveWidget', data)
+        .then((response) => { 
+            return response.data;
+        })
+        .catch((error) =>{
+            console.log(error);
+            throw error;  // Propagate the error so it can be caught in calling function
+        });
 };

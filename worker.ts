@@ -26,6 +26,8 @@ async function processTasks() {
       const templateSoure = fs.readFileSync(path.join(__dirname, '/templates/widget.handlebars'), 'utf-8');
       const template = handlebars.compile(templateSoure);
 
+      console.log('widgetSettingsData', widgetSettingsData);
+      
       // Render the HTML using the widgetSettings data
       const html = template(widgetSettingsData);
       console.log(html);

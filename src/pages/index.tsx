@@ -1,6 +1,6 @@
-import Layout from "@/components/Layout";
+import Layout from "@/UI/Layout";
 
-const HomePage = () => {
+const HomePage = (props) => {
   return (
     <Layout>
       <div></div>
