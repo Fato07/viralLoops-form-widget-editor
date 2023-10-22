@@ -3,6 +3,7 @@ const { config } = require('dotenv');
 const fs = require('fs');
 const path = require('path');
 const ejs = require('ejs');
+const handlebars = require('handlebars');
 
 config();
 
@@ -11,21 +12,26 @@ const redis = new Redis({
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
+// Register a custom helper for Handlebars
+handlebars.registerHelper('eq', (a: any, b: any) => a === b);
+
 async function processTasks() {
   while (true) {
     const task = await redis.lmove('widget-settings-tasks', 'widget-settings-tasks-processing', 'right', 'left');
 
     if (task) {
-      const widgetSettings = task;
-      const template = fs.readFileSync(path.join(__dirname, '/templates/widget.ejs'), 'utf-8');
+      const widgetSettingsData = task;
+
+      // Load the Handlebars template
+      const templateSoure = fs.readFileSync(path.join(__dirname, '/templates/widget.handlebars'), 'utf-8');
+      const template = handlebars.compile(templateSoure);
 
       // Render the HTML using the widgetSettings data
-      // Note: You need to require 'ejs' to use the 'ejs.render' function
-      const html = ejs.render(template, widgetSettings);
-      console.log(widgetSettings);
+      const html = template(widgetSettingsData);
+      console.log(html);
 
       // Save the generated HTML to a file in the templates folder
-      fs.writeFileSync(path.join(__dirname, `/public/widgets/${widgetSettings.id}.html`), html);
+      fs.writeFileSync(path.join(__dirname, `/public/widgets/${widgetSettingsData.id}.html`), html);
     }
   }
 }
