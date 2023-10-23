@@ -6,67 +6,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
+    <title>Modern Form</title>
     <style>
-        /* Basic styling */
-
         body {
+            font-family: 'Avenir', Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh; /* full viewport height */
+            height: 100vh;
             margin: 0;
+            background-color: #f4f5f7;
         }
 
         .container {
-            padding: 4px;
-            border: 1px solid;
+            background: #fff;
+            padding: 30px;
             border-radius: 10px;
             width: 100%;
             max-width: 500px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
         }
 
-        .container h1, .container p {
-            text-align: center; /* align text to center */
+        .container h1,
+        .container p {
+            text-align: {{fontSettings.textAlign}};
+            color: {{fontSettings.fontColor}};
+            font-size: {{fontSettings.fontSize}}px;
+            margin: 0;
         }
 
-        input[type="text"], input[type="email"] {
+        label {
+            display: none;
+        }
+
+        input[type="text"],
+        input[type="email"] {
             display: block;
             width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
+            padding: 10px;
+            margin-bottom: 15px;
             box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            border: 1px solid #555;
+            outline: none;
         }
 
         button {
             display: block;
             width: 100%;
-            padding: 8px;
-            background-color: {{backgroundColor}};
+            padding: 12px;
+            background-color: {{submitButton.backgroundColor}};
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            opacity: 0.9;
+            background-color: #0056b3;
         }
+
+        .required:after {
+            content: " *";
+            color: red;
+        }
+
+         select, 
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-bottom: 15px;
+        }
+
     </style>
 </head>
 
 <body>
     <div class="container">
-        <form action="{{formAction}}" method="post">
-            <h1 style="font-size: {{fontSize}}; color: {{fontColor}};">{{title}}</h1>
-            <p style="font-size: medium; color: {{fontColor}};">{{subtitle}}</p>
-            <input type="text" name="firstName" placeholder="First Name{{#if isFirstNameRequired}} *{{/if}}" {{#if isFirstNameRequired}}required{{/if}}>
-            <input type="text" name="lastName" placeholder="Last Name{{#if isLastNameRequired}} *{{/if}}" {{#if isLastNameRequired}}required{{/if}}>
-            <input type="email" name="email" placeholder="Email *" required>
-            <button type="submit">{{buttonText}}</button>
+        <form action method="post">
+            <h1 class="title">{{fields.title}}</h1>
+            <p class="subtitle">{{fields.subtitle}}</p>
+
+            <input type="text" name="firstName" placeholder="First Name{{#if isFirstNameRequired}} *{{/if}}" required="{{isFirstNameRequired}}">
+            <input type="text" name="lastName" placeholder="Last Name{{#if isLastNameRequired}} *{{/if}}" required="{{isLastNameRequired}}">
+            <input type="email" name="email" placeholder="Email" required>
+
+            {{#each extraFields}}
+                {{#switch this.type}}
+                    {{#case "checkbox"}}
+                        <label class="{{#if this.required}}required{{/if}}">
+                            <input type="checkbox" name="{{this.id}}" required="{{this.required}}"> {{this.label}}
+                        </label>
+                    {{/case}}
+
+                    {{#case "radio"}}
+                        <div>
+                        {{#each this.options}}
+                            <label>
+                                <input type="radio" name="{{../this.id}}" value="{{this.value}}" required="{{../this.required}}"> {{this.label}}
+                            </label>
+                        {{/each}}
+                        </div>
+                    {{/case}}
+
+                    {{#case "dropdown"}}
+                        <select name="{{this.id}}" required="{{this.required}}">
+                            <option value="" disabled selected>{{this.label}}</option>
+                            {{#each this.options}}
+                                <option value="{{this.value}}">{{this.label}}</option>
+                            {{/each}}
+                        </select>
+                    {{/case}}
+                {{/switch}}
+            {{/each}}
+
+            <button type="submit" style="background-color: {{submitButton.backgroundColor}};">{{submitButton.text}}</button>
         </form>
     </div>
 </body>
 
 </html>
-
