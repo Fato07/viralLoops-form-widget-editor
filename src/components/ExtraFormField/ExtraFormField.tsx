@@ -16,10 +16,12 @@ const ExtraFormField = ({ field }: { field: ExtraField }) => {
   };
 
   const updateOptions = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const options = e.target.value.split(',').map(label => ({ label: label.trim(), value: label.trim() }));
+    let options = e.target.value.split(',').map(label => ({ label: label.trim(), value: label.trim() }));
+
     const updatedField = { ...field, options };
     dispatch(updateField(updatedField));
   };
+
 
   const toggleRequired = () => {
     const updatedField = { ...field, required: !field.required };

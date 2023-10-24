@@ -1,0 +1,209 @@
+<!-- templates/widget.handlebars -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Modern Form</title>
+        <style>
+        body {
+            font-family: 'Avenir', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f5f7;
+        }
+
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h1,
+        .container p {
+            text-align: center;
+            color: #8b89c8;
+            font-size: 30px;
+            margin: 0;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            border: 1px solid #555;
+            outline: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .required:after {
+            content: " *";
+            color: red;
+        }
+
+         select, 
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-bottom: 15px;
+        }
+
+        select {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+        transition: border 0.3s;
+        background: #fff;
+        appearance: none;
+        cursor: pointer;
+    }
+
+    select:focus {
+        border: 1px solid #555;
+        outline: none;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+
+    /* Custom Radio Button Styles */
+    input[type="radio"] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    input[type="radio"]:checked {
+        background-color: #555;
+        border-color: #555;
+    }
+
+    /* Custom Checkbox Styles */
+    input[type="checkbox"] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"]:checked {
+        background-color: #555;
+        border-color: #555;
+    }
+
+    input[type="checkbox"]:checked:after {
+        content: '✓';
+        color: #fff;
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
+    </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <form action method="post">
+                <h1 class="title">TO THE TOP</h1>
+                <p class="subtitle">We are always going to the top</p>
+
+                <input type="text" name="firstName"
+                    placeholder="First Name *"
+                    required>
+
+                <input type="text" name="lastName"
+                    placeholder="Last Name *"
+                    required>
+
+                <input type="email" name="email"
+                    placeholder="Email*" required>
+
+                <label class="required">
+                    <input type="checkbox" name="1698154859129"
+                        required="true"> My Label
+                </label>
+
+
+
+                <div>
+                    <label>
+                        <input type="radio" name="1698154859583"
+                            value="validate"
+                            required="true"> validate
+                    </label>
+                    <label>
+                        <input type="radio" name="1698154859583"
+                            value="adsasd"
+                            required="true"> adsasd
+                    </label>
+                    <label>
+                        <input type="radio" name="1698154859583"
+                            value="adssadas"
+                            required="true"> adssadas
+                    </label>
+                </div>
+
+
+
+                <select name="1698154860067" required="true">
+                    <option value disabled selected>Select an option</option>
+                    <option value="blue">blue</option>
+                    <option value="red">red</option>
+                    <option value="black">black</option>
+                </select>
+
+                <button type="submit"
+                    style="background-color: #ff0000;">Fuck Yeah!</button>
+            </form>
+        </div>
+    </body>
+
+</html>
