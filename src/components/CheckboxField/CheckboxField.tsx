@@ -4,7 +4,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { removeField } from '@/store/extraFieldsSlice';
 
-const CheckboxField = ({ field, updateLabel, toggleRequired }) => {
+// TODO: Add Proper types
+const CheckboxField = ({ field, updateLabel, toggleRequired }: any) => {
  const dispatch = useDispatch();
 
  return (
