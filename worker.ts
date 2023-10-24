@@ -2,7 +2,6 @@ const { Redis } = require('@upstash/redis');
 const { config } = require('dotenv');
 const fs = require('fs');
 const path = require('path');
-const ejs = require('ejs');
 const handlebars = require('handlebars');
 
 config();
@@ -13,7 +12,22 @@ const redis = new Redis({
 });
 
 // Register a custom helper for Handlebars
-handlebars.registerHelper('eq', (a: any, b: any) => a === b);
+// handlebars.registerHelper('eq', (a: any, b: any) => a === b);
+
+// Register 'switch' helper
+handlebars.registerHelper('switch', function(this:any, value: any, options: any) {
+  this._switch_value_ = value;
+  const html = options.fn(this); // Process the body of the switch block
+  delete this._switch_value_;
+  return html;
+});
+
+// Register 'case' helper
+handlebars.registerHelper('case', function(this:any, value: any, options: any) {
+  if (value == this._switch_value_) {
+      return options.fn(this);
+  }
+});
 
 async function processTasks() {
   while (true) {
