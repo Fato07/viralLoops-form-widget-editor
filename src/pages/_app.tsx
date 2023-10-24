@@ -1,18 +1,20 @@
 import '@/styles/globals.css'
-import type { AppProps } from 'next/app'
+import { ClerkProvider } from "@clerk/nextjs";
 import { ChakraProvider } from '@chakra-ui/react'
 import { Provider } from 'react-redux';
 import store from '../store/store';
+import { AppProps } from 'next/app';
 
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <ChakraProvider>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </Provider>
-
+    <ClerkProvider {...pageProps}>
+      <Provider store={store}>
+        <ChakraProvider>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </Provider>
+    </ClerkProvider>
   )
 }
 
