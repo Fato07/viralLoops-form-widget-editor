@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { setBackgroundColor, setText } from '../../store/submitButtonSlice';
 
-const SubmitButtonCustomization = ({ register }) => {
+const SubmitButtonCustomization = () => {
  const dispatch = useDispatch();
 
  // Redux state
@@ -15,7 +15,6 @@ const SubmitButtonCustomization = ({ register }) => {
    <FormControl>
     <FormLabel>Background Color</FormLabel>
     <Input
-     {...register("backgroundColor")}
      type="color"
      value={backgroundColor}
      onChange={(e) => dispatch(setBackgroundColor(e.target.value))}
@@ -24,7 +23,6 @@ const SubmitButtonCustomization = ({ register }) => {
    <FormControl>
     <FormLabel>Button Text</FormLabel>
     <Input
-     {...register("buttonText")}
      value={buttonText}
      onChange={(e) => dispatch(setText(e.target.value))}
      placeholder="Enter button text"

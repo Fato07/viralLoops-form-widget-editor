@@ -1,52 +1,74 @@
-import { FormControl, FormLabel, Input, Select } from '@chakra-ui/react';
+import {
+ FormControl, FormLabel, Input, Slider, SliderTrack, SliderFilledTrack,
+ SliderThumb, HStack, IconButton, Tooltip, Box
+} from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { setFontSize, setFontColor, setTextAlign } from '../../store/fontCustomizationSlice';
+import { FaAlignLeft, FaAlignCenter, FaAlignRight } from 'react-icons/fa';
 
-const FontCustomization = ({ register }) => {
+const FontCustomization = () => {
  const dispatch = useDispatch();
 
- // Redux state
  const fontSize = useSelector((state: RootState) => state.fontCustomization.fontSize);
  const fontColor = useSelector((state: RootState) => state.fontCustomization.fontColor);
  const textAlign = useSelector((state: RootState) => state.fontCustomization.textAlign);
 
  return (
   <>
-   <FormControl>
+   <FormControl mb="2">
     <FormLabel>Font Size</FormLabel>
-    <Select
-     {...register("fontSize")}
+    <Slider
+     min={10}
+     max={30}
      value={fontSize}
-     onChange={(e) => dispatch(setFontSize(e.target.value))}
-     placeholder="Select font size"
-    >
-     <option value="small">Small</option>
-     <option value="medium">Medium</option>
-     <option value="large">Large</option>
-    </Select>
+     onChange={(val) => dispatch(setFontSize(val))}>
+     <SliderTrack>
+      <SliderFilledTrack />
+     </SliderTrack>
+     <SliderThumb boxSize={6}>
+      <Box color="gray.600" fontWeight="bold">{fontSize}</Box>
+     </SliderThumb>
+    </Slider>
    </FormControl>
-   <FormControl>
+
+   <FormControl mb="2">
     <FormLabel>Font Color</FormLabel>
     <Input
-     {...register("fontColor")}
      type="color"
      value={fontColor}
      onChange={(e) => dispatch(setFontColor(e.target.value))}
     />
    </FormControl>
-   <FormControl>
+
+   <FormControl mb="2">
     <FormLabel>Text Alignment</FormLabel>
-    <Select
-     {...register("textAlign")}
-     value={textAlign}
-     onChange={(e) => dispatch(setTextAlign(e.target.value))}
-     placeholder="Select alignment"
-    >
-     <option value="left">Left</option>
-     <option value="center">Center</option>
-     <option value="right">Right</option>
-    </Select>
+    <HStack spacing="2">
+     <Tooltip label="Align left">
+      <IconButton
+       aria-label="Align left"
+       icon={<FaAlignLeft />}
+       variant={textAlign === 'left' ? 'solid' : 'outline'}
+       onClick={() => dispatch(setTextAlign('left'))}
+      />
+     </Tooltip>
+     <Tooltip label="Align center">
+      <IconButton
+       aria-label="Align center"
+       icon={<FaAlignCenter />}
+       variant={textAlign === 'center' ? 'solid' : 'outline'}
+       onClick={() => dispatch(setTextAlign('center'))}
+      />
+     </Tooltip>
+     <Tooltip label="Align right">
+      <IconButton
+       aria-label="Align right"
+       icon={<FaAlignRight />}
+       variant={textAlign === 'right' ? 'solid' : 'outline'}
+       onClick={() => dispatch(setTextAlign('right'))}
+      />
+     </Tooltip>
+    </HStack>
    </FormControl>
   </>
  );

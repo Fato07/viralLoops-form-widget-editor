@@ -4,7 +4,7 @@ import { RootState } from '../../store/store';
 import { setTitle, setSubtitle } from '../../store/titleSubtitleSlice';
 import { toggleFirstNameRequired, toggleLastNameRequired } from '@/store/requiredFieldsSlice';
 
-const TitleSubtitleFields = ({ register }) => {
+const TitleSubtitleFields = () => {
  const dispatch = useDispatch();
 
  // Redux state
@@ -18,7 +18,6 @@ const TitleSubtitleFields = ({ register }) => {
    <FormControl>
     <FormLabel>Title</FormLabel>
     <Input
-     {...register("title")}
      value={title}
      onChange={(e) => dispatch(setTitle(e.target.value))}
      placeholder="Enter title"
@@ -27,7 +26,6 @@ const TitleSubtitleFields = ({ register }) => {
    <FormControl>
     <FormLabel>Subtitle</FormLabel>
     <Input
-     {...register("subtitle")}
      value={subtitle}
      onChange={(e) => dispatch(setSubtitle(e.target.value))}
      placeholder="Enter subtitle"

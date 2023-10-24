@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  fontSize: 'medium',
+  fontSize: 20,
   fontColor: '#000000',
   textAlign: 'left',
 };

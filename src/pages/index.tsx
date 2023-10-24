@@ -1,10 +1,8 @@
 import Layout from "@/UI/Layout";
 
-const HomePage = (props) => {
+const HomePage = () => {
   return (
-    <Layout>
-      <div></div>
-    </Layout>
+    <Layout />
   );
 };
 
