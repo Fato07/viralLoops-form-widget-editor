@@ -1,0 +1,1 @@
+worker: ts-node -P tsconfig.worker.json worker.ts
