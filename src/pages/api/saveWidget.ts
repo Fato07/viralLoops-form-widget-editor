@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             data: dataToSave
         });
 
-          // add the task to the redis queue
+        // add the task to the redis queue
         await redis.lpush('widget-settings-tasks', JSON.stringify(result));
 
         res.status(200).json({ success: true, data: result });
