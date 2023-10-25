@@ -278,6 +278,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         blobId: blob,
         widgetSettingsId: task.id
     }
+
+    // Delete the task from the queue after it's processed
+    await redis.lrem('widget-settings-tasks-processing', 0, task.id);
+    
     res.status(200).send({ message: "HTML uploaded successfully", data });
 
     // make the file accessiible at a public URL
@@ -294,5 +298,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.error('Error writing file:', err);
         return res.status(500).send({ message: 'Error writing HTML file.' });
     }
-
 }

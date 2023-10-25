@@ -1,12 +1,10 @@
-<!-- templates/widget.handlebars -->
-
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Generated Widget</title>
+        <title>Modern Form</title>
         <style>
         body {
             font-family: 'Avenir', Arial, sans-serif;
@@ -29,9 +27,9 @@
 
         .container h1,
         .container p {
-            text-align: {{fontSettings.textAlign}};
-            color: {{fontSettings.fontColor}};
-            font-size: {{fontSettings.fontSize}}px;
+            text-align: left;
+            color: #000000;
+            font-size: 28px;
             margin: 0;
         }
 
@@ -58,7 +56,7 @@
             display: block;
             width: 100%;
             padding: 12px;
-            background-color: {{submitButton.backgroundColor}};
+            background-color: #3182CE;
             color: white;
             border: none;
             border-radius: 5px;
@@ -152,54 +150,23 @@
     <body>
         <div class="container">
             <form action method="post">
-                <h1 class="title">{{fieldSettings.title}}</h1>
-                <p class="subtitle">{{fieldSettings.subtitle}}</p>
+                <h1 class="title">WEFWAFEW</h1>
+                <p class="subtitle">SDFSDFSDAF</p>
 
                 <input type="text" name="firstName"
-                    placeholder="First Name{{#if fieldSettings.firstName.isRequired}} *{{/if}}"
-                    {{#if fieldSettings.firstName.isRequired}}required{{/if}}>
+                    placeholder="First Name *"
+                    required>
 
                 <input type="text" name="lastName"
-                    placeholder="Last Name{{#if fieldSettings.lastName.isRequired}} *{{/if}}"
-                    {{#if fieldSettings.lastName.isRequired}}required{{/if}}>
+                    placeholder="Last Name *"
+                    required>
 
                 <input type="email" name="email"
                     placeholder="Email*" required>
 
-                {{#each extraFields}}
-                {{#switch this.type}}
-                {{#case "checkbox"}}
-                <label class="{{#if this.required}}required{{/if}}">
-                    <input type="checkbox" name="{{this.id}}"
-                        required="{{this.required}}"> {{this.label}}
-                </label>
-                {{/case}}
-
-                {{#case "radio"}}
-                <div>
-                    {{#each this.options}}
-                    <label>
-                        <input type="radio" name="{{../this.id}}"
-                            value="{{this.value}}"
-                            required="{{../this.required}}"> {{this.label}}
-                    </label>
-                    {{/each}}
-                </div>
-                {{/case}}
-
-                {{#case "dropdown"}}
-                <select name="{{this.id}}" required="{{this.required}}">
-                    <option value disabled selected>Select an option</option>
-                    {{#each this.options}}
-                    <option value="{{this.value}}">{{this.label}}</option>
-                    {{/each}}
-                </select>
-                {{/case}}
-                {{/switch}}
-                {{/each}}
 
                 <button type="submit"
-                    style="background-color: {{submitButton.backgroundColor}};">{{submitButton.text}}</button>
+                    style="background-color: #3182CE;">Submit</button>
             </form>
         </div>
     </body>

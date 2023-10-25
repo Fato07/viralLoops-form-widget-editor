@@ -108,6 +108,8 @@ const Footer = () => {
           <Link href={generatedLink}>
             <Button
               float={'right'}
+              color="white"
+              backgroundColor="black"
             >
               Your widget is ready! View It
             </Button>
