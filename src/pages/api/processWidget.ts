@@ -234,7 +234,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     console.log('Processing widget settings task', req.body);
     
-    const task = await redis.lmove('widget-settings-tasks', 'widget-settings-tasks-processing', 'right', 'left');
+    const taskString = await redis.lmove('widget-settings-tasks', 'widget-settings-tasks-processing', 'right', 'left');
+
+    const task = JSON.parse(taskString);
     
     if (!task) {
         return res.status(200).send("No tasks to process.");
