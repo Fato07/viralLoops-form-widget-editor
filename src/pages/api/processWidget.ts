@@ -264,11 +264,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // make the file accessiible at a public URL
     try {
-        const filePath = path.join(process.cwd(), 'public', 'widgets', filename);
+        // const filePath = path.join(process.cwd(), 'public', 'widgets', filename);
+
+        console.log(' Testing to see the filePath', process.cwd());
 
         // Write the generated HTML to a file in the public/widgets directory
-        await writeFile(filePath, html, 'utf8');
-        console.log(`File saved to ${filePath}`);
+        // await writeFile(filePath, html, 'utf8');
+        // console.log(`File saved to ${filePath}`);
 
     } catch (err) {
         console.error('Error writing file:', err);
