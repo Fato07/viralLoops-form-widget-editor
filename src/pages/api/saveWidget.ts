@@ -7,10 +7,6 @@ const redis = Redis.fromEnv();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
-    if (req.method !== 'POST') {
-      return res.status(405).end();
-    }
-
     const { fields, fontSettings, submitButton, extraFields } = req.body;
     const dataToSave = {
         fieldSettings: fields,
@@ -19,7 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         extraFields: extraFields
     };
   
-  console.log('dataToSave', dataToSave);
+  console.log('dataToSave in API', dataToSave);
+
     try {
         const result = await prisma.widgetSettingsData.create({
             data: dataToSave
