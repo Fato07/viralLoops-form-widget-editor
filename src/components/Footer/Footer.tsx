@@ -2,6 +2,7 @@ import { saveWidgetSettings } from '@/service/apiService';
 import { RootState } from '@/store/store';
 import { Box, Button, Spinner, Tooltip, useToast } from '@chakra-ui/react';
 import axios from 'axios';
+import Link from 'next/link';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -19,6 +20,10 @@ const Footer = () => {
   const extraFields = useSelector((state: RootState) => state.extraFields);
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+
+  //TODO: add proper types
+  const [generatedLink, setGeneratedLink] = useState<any>(null);
+
 
   const handleSubmit = () => {
     const data = {
@@ -68,18 +73,22 @@ const Footer = () => {
           isClosable: true,
         });
         setIsLoading(false);
-      }).then(() => {
+      })
+      .then(() => {
 
         // Event Based to trigger the serverless function to process and generate the HTML
         // The serverless fucntion acts as our background worker
-        axios.get('/api/processWidget').then((res) => {
-          console.log('res', res.data);
-          toast({
-            title: "Success",
-            description: `Widget ${res.data.data.widgetSettingsId} generated successfully`,
-            isClosable: true,
-          });
-        });
+        axios.get('/api/processWidget')
+          .then((res) => {
+            console.log('res', res.data.data.blobId.url);
+            toast({
+              title: "Success",
+              description: `Widget ${res.data.data.widgetSettingsId} generated successfully`,
+              isClosable: true,
+            });
+
+            setGeneratedLink(`widgets/${res.data.data.widgetSettingsId}`);
+          })
       });
   }
 
@@ -93,19 +102,32 @@ const Footer = () => {
       bg="white"
       width="100%"
     >
-      <Tooltip label="Save your settings" aria-label="Save tooltip">
-        <Button
-          float={'right'}
-          width={'100px'}
-          isLoading={isLoading}
-          loadingText="Saving..."
-          leftIcon={isLoading ? <Spinner size="xs" /> : undefined}
-          aria-label="Save Settings"
-          onClick={handleSubmit}
-        >
-          Save
-        </Button>
-      </Tooltip>
+      {generatedLink ? (
+        <Box>
+          {/* <span>Your widget is ready! Navigate to: </span> */}
+          <Link href={generatedLink}>
+            <Button
+              float={'right'}
+            >
+              Your widget is ready! View It
+            </Button>
+          </Link>
+        </Box>
+      ) : (
+        <Tooltip label="Save your settings" aria-label="Save tooltip">
+          <Button
+            float={'right'}
+            width={'100px'}
+            isLoading={isLoading}
+            loadingText="Saving..."
+            leftIcon={isLoading ? <Spinner size="xs" /> : undefined}
+            aria-label="Save Settings"
+            onClick={handleSubmit}
+          >
+            Save
+          </Button>
+        </Tooltip>
+      )}
     </Box>
   );
 }
