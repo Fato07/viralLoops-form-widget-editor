@@ -22,32 +22,25 @@ Welcome to the most fabulous Form Widget Editor in the galaxy! 🌌 Unleash your
    ```
    cd form-widget-editor
    ```
-3. **Install The Stars**
+3. **Create a `.env` file and add the secrets sent to you via email**
+   
+4. **Install The Stars**
    ```
    yarn install
    ```
-4. **Setup Planet Scale**:
+5. **Setup Database that stores widget Settings**:
   
-   i. Install the PlanetScale CLI: Please refer to the official [documentation](https://github.com/planetscale/cli#installation) depending on your OS.
+   i. Connect Prisma to the PlanetScale database. The databse url is defined as `DATABASE_URL_PROD` in your `.env file`.
 
-   ii. Authenticate with PlanetScale:
-   ```
-   pscale auth login
-   ```
-   iii. Connect Prisma to your PlanetScale database by setting the `DATABASE_URL` in your `.env file`.
+   ii. now run `npx prisma generate`
 
-   iv. Push your Prisma schema to PlanetScale:
-   ```
-   npx prisma db push
-   ```
-
-5. **Run the Project**:
+6. **Run the Project**:
    ```
    Yarn dev
    ```
-6. Visit the Cosmos: Open your browser and navigate to http://localhost:3000. Witness the magic! 🪄
+7. Visit the Cosmos: Open your browser and navigate to http://localhost:3000. Witness the magic! 🪄
 
-7. Spin up the background worker:
+8. Message Qeue and Backgorund Worker
    
    i. Ensure you have [ts-node](https://www.npmjs.com/package/ts-node) installed and run the following command
 

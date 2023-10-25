@@ -28,7 +28,7 @@ const Preview = () => {
       width="100%"
       maxW="500px"
       position="absolute"
-      top="300px"
+      // top="300px"
     >
       <VStack spacing={4} align="stretch">
         <Heading
