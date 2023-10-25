@@ -230,14 +230,32 @@ Handlebars.registerHelper('case', function(this:any, value: any, options: any) {
  }
 });
 
+type Task = {
+    id: string,
+    fieldSettings: {
+        title: string,
+        lastName: {
+            isRequired: boolean
+        },
+        subtitle: string,
+        firstName: {
+            isRequired: boolean
+        }
+      },
+      fontSettings: { fontSize: number, fontColor: string, textAlign: string },
+      submitButton: { text: string, backgroundColor: string },
+      extraFields: []
+    
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     
     console.log('Processing widget settings task', req.body);
     
-    const taskString = await redis.lmove('widget-settings-tasks', 'widget-settings-tasks-processing', 'right', 'left');
+    const task : Task = await redis.lmove('widget-settings-tasks', 'widget-settings-tasks-processing', 'right', 'left');
 
-    const task = JSON.parse(taskString);
-    
+    console.log('task', task);
+
     if (!task) {
         return res.status(200).send("No tasks to process.");
       }
@@ -264,13 +282,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // make the file accessiible at a public URL
     try {
-        // const filePath = path.join(process.cwd(), 'public', 'widgets', filename);
+        const filePath = path.join(process.cwd(), 'public', 'widgets', filename);
 
         console.log(' Testing to see the filePath', process.cwd());
 
         // Write the generated HTML to a file in the public/widgets directory
-        // await writeFile(filePath, html, 'utf8');
-        // console.log(`File saved to ${filePath}`);
+        await writeFile(filePath, html, 'utf8');
+        console.log(`File saved to ${filePath}`);
 
     } catch (err) {
         console.error('Error writing file:', err);
