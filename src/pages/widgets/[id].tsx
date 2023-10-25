@@ -20,14 +20,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 
-const WaitlistPage = ({ blobs }) => {
+// TODO: add proper types
+const WaitlistPage = ({ blobs }: any) => {
 
  const router = useRouter()
  const { id } = router.query
  console.log('props', blobs);
  console.log('id', id);
 
- const matchingBlob = blobs.find((blob) => blob.pathname.includes(id));
+ //Todo: add proper types
+ const matchingBlob = blobs.find((blob: any) => blob.pathname.includes(id));
 
  console.log('matchingBlob', matchingBlob);
 
