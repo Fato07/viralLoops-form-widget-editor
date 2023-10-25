@@ -3,7 +3,7 @@ import { Redis } from '@upstash/redis';
 import { PrismaClient } from '@prisma/client';
 import { put } from "@vercel/blob";
 import Handlebars from "handlebars";
-import fs from 'fs';
+import { promises as fs } from 'fs';
 import path from 'path';
 
 const prisma = new PrismaClient();
