@@ -179,9 +179,10 @@
                 <div>
                     {{#each this.options}}
                     <label>
+                        {{this.label}}
                         <input type="radio" name="{{../this.id}}"
                             value="{{this.value}}"
-                            required="{{../this.required}}"> {{this.label}}
+                            required="{{../this.required}}"> 
                     </label>
                     {{/each}}
                 </div>
@@ -189,7 +190,7 @@
 
                 {{#case "dropdown"}}
                 <select name="{{this.id}}" required="{{this.required}}">
-                    <option value disabled selected>Select an option</option>
+                    <option value disabled selected>{{this.label}}</option>
                     {{#each this.options}}
                     <option value="{{this.value}}">{{this.label}}</option>
                     {{/each}}

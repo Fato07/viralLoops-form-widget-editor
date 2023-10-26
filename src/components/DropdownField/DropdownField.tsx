@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useState } from 'react';
-import { Box, Flex, Icon, Text, Textarea, Tooltip } from '@chakra-ui/react';
+import { Box, Flex, Icon, Input, Text, Textarea, Tooltip } from '@chakra-ui/react';
 import { FaTrashAlt } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { removeField } from '@/store/extraFieldsSlice';
 
 // TODO: Add Proper types
-const DropdownField = ({ field, updateOptions }: any) => {
+const DropdownField = ({ field, updateLabel, updateOptions }: any) => {
  const dispatch = useDispatch();
 
  const [isExceeded, setIsExceeded] = useState(false);
@@ -41,6 +41,13 @@ const DropdownField = ({ field, updateOptions }: any) => {
      </Box>
     </Tooltip>
    </Flex>
+   <Input
+    mt={5}
+    value={field.label || ''}
+    onChange={updateLabel}
+    placeholder="Dropdown Label"
+    maxW="100%"
+   />
    <Textarea
     mt={5}
     // TODO: Add proper types for options

@@ -28,7 +28,7 @@ const Preview = () => {
       width="100%"
       maxW="500px"
       position="absolute"
-      // top="300px"
+    // top="300px"
     >
       <VStack spacing={4} align="stretch">
         <Heading
@@ -49,7 +49,7 @@ const Preview = () => {
         <Input placeholder={`First Name${isFirstNameRequired ? ' *' : ''}`} required={isFirstNameRequired} />
         <Input placeholder={`Last Name${isLastNameRequired ? ' *' : ''}`} required={isLastNameRequired} />
 
-        <Input placeholder="Email" required />
+        <Input placeholder="Email*" required />
         {/* Render Extra Fields */}
         {extraFields.map(field => {
           switch (field.type) {
@@ -62,6 +62,7 @@ const Preview = () => {
             case 'radio':
               return (
                 <RadioGroup key={field.id}>
+                  <Text>{field.label}</Text>
                   {field.options?.map(option => (
                     <Radio value={option.value} key={option.value}>
                       {option.label}
