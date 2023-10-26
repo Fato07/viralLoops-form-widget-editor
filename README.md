@@ -2,6 +2,15 @@
 
 Welcome to the most fabulous Form Widget Editor in the galaxy! 🌌 Unleash your creativity, customize your form widgets, and watch them come to life in real-time. Built with love, React, TypeScript, Next.js, Chakra UI, and PlanetScale.
 
+## 🎥 Demo Video:
+
+To get a better understanding of how the Form Widget Editor works, watch the demo video below:
+
+[![Form Widget Editor Demo](./demo.png)](https://www.youtube.com/watch?v=4KTsjtjGkWY "Form Widget Editor Demo")
+
+Click on the image above to play the video. Replace `INSERT_VIDEO_ID` with the actual YouTube video ID.
+
+
 ## 🌈 Features:
 
 - **Dynamic Preview**: What you see is what you get, in real-time!
