@@ -8,8 +8,7 @@ To get a better understanding of how the Form Widget Editor works, watch the dem
 
 [![Form Widget Editor Demo](./demo.png)](https://www.youtube.com/watch?v=4KTsjtjGkWY "Form Widget Editor Demo")
 
-Click on the image above to play the video. Replace `INSERT_VIDEO_ID` with the actual YouTube video ID.
-
+Click on the image above to play the video.
 
 ## 🌈 Features:
 
