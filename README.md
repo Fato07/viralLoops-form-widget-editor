@@ -36,7 +36,7 @@ Click on the image above to play the video. Replace `INSERT_VIDEO_ID` with the a
    ```
 5. **Setup Database that stores widget Settings**:
   
-   i. Connect Prisma to the PlanetScale database. The databse url is defined as `DATABASE_URL_PROD` in your `.env file`.
+   i. Connect Prisma to the PlanetScale database. The databse url is defined as `DATABASE_URL` in your `.env file`.
 
    ii. now run `npx prisma generate`
 
